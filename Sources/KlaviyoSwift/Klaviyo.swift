@@ -205,6 +205,23 @@ public class Klaviyo: NSObject {
     }
 
     /**
+     handlePushNotificationResponse: Track a notificationResponse open event in Klaviyo. NOTE: all callbacks will be made on the main thread.
+
+     - Parameters:
+        - remoteNotification: the remote notificaiton that was opened
+        - completionHandler: a completion handler that will be called with a result for Klaviyo notifications
+        - deepLinkHandler: a completion handler that will be called when a notification contains a deep link.
+     - Returns: true if the notificaiton originated from Klaviyo, false otherwise.
+     
+     */
+    @available(
+        iOS, deprecated: 9999, message: "Deprecated as of version 2.0.0. Use `KlaviyoSDK().handle(notificationResponse:withCompletionHandler:) instead.")
+    @objc
+    public func handlePushNotificationResponse(notificationResponse: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void, deepLinkHandler: ((URL) -> Void)? = nil) -> Bool {
+        return Self.sdkInstance.handle(notificationResponse: notificationResponse, withCompletionHandler: completionHandler, deepLinkHandler: deepLinkHandler)
+    }
+
+    /**
      trackEvent: KL Event tracking for event name only
 
      - Parameter eventName: name of the event
